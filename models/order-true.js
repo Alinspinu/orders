@@ -47,6 +47,10 @@ const orderTrueSchema = new Schema({
         type: String,
         default: "open",
     },
+    prepStatus: {
+        type: String,
+        default: 'open'
+    },
     toGo: {
         type: Boolean,
         default: false

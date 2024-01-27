@@ -1,6 +1,7 @@
 
 
-let baseUrlLocal = 'https://192.168.100.155:8010/'
+// let baseUrlLocal = 'https://192.168.100.155:8010/'
+let baseUrlLocal = 'https://localhost:8010/'
 
 // const currentUrl = window.location.href;
 // if (currentUrl.startsWith(baseUrlLocal)) {

@@ -17,7 +17,7 @@ module.exports.sendLiveOrders = async (req, res, next) => {
         console.log(change.operationType)
         if (
             (change.operationType === "insert" || change.operationType === "update") &&
-            change.fullDocument.status === 'open' &&
+            change.fullDocument.prepStatus === 'open' &&
             change.fullDocument.production === true &&
             change.fullDocument.pending === true
         ) {
@@ -32,15 +32,14 @@ module.exports.sendLiveOrders = async (req, res, next) => {
 
 
 module.exports.getOrder = async (req, res, next) => {
-    const orders = await TrueOrder.find({ status: "open", production: true }).populate({path: 'products.ings.ing', model: 'IngredientInv', select: "name um" })
-    console.log(orders)
+    const orders = await TrueOrder.find({ prepStatus: "open", production: true }).populate({path: 'products.ings.ing', model: 'IngredientInv', select: "name um" })
     res.json(orders)
 }
 
 
 module.exports.orderDone = async (req, res, next) => {
     const { cmdId } = req.query
-    const doc = await TrueOrder.findByIdAndUpdate(cmdId, { status: 'done' })
+    const doc = await TrueOrder.findByIdAndUpdate(cmdId, { prepStatus: 'done' })
     res.status(200)
 }
 
@@ -58,7 +57,7 @@ module.exports.getOrderDone = async (req, res, next) => {
     try {
         const currentDate = new Date();
         currentDate.setHours(0, 0, 0, 0)
-        const orders = await TrueOrder.find({ createdAt: { $gte: currentDate }, status: 'done', production: true })
+        const orders = await TrueOrder.find({ createdAt: { $gte: currentDate }, prepStatus: 'done', production: true })
         res.status(200).json(orders)
     } catch (err) {
         console.log(err);
