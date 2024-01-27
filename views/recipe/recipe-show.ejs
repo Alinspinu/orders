@@ -1,0 +1,28 @@
+<% layout('layouts/center') %>
+<div class="row">
+    <div class="col-lg-6 offset-lg-3 p-0">
+        <div class="icon-container">
+            <i class="bi bi-backspace" id="back-icon"></i>
+        </div>
+    </div>
+    
+    <div class="col-lg-6 offset-lg-3 card text-center mt-2 card-container">
+            <% if(product.image.path){%>
+                <img src="<%=product.image.path.split('upload')[0] + 'upload/c_fill,w_555,h_555' + product.image.path.split('upload')[1]%>" class="card-img-top" id="image" alt="recipe-image">
+                <% } else {%>
+                    <img src="https://res.cloudinary.com/dhetxk68c/image/upload/v1683306917/Recipes/5057709_ojy0wt.png" class="card-img-top" id="image" alt="default-image">
+                    <% } %>
+            <h3 class="text-center"><%= product.name%></h3>
+            <span class="recipe-header text-center"><%=product.qty%> g</span>
+        <div class="card-body text-center px-3">
+            <ul class="p-0 mb-0">
+                <% product.ings.forEach(ing=>{ %>
+                    <li class="" id="ingredient"><%=ing.ing.name%> X <%=ing.qty%>  <%=ing.ing.um%></li>
+                    <% }) %>
+            </ul>
+        </div>
+        
+    </div>
+</div>
+
+
